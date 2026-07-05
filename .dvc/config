@@ -1,0 +1,4 @@
+[core]
+    remote = my-remote
+['remote "my-remote"']
+    url = ../temp_dvc_storage
