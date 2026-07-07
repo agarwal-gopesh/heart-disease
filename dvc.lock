@@ -9,8 +9,8 @@ stages:
       size: 4094608
     - path: params.yaml
       hash: md5
-      md5: 4079dc62165b97606ef5c6bdb3ba73b8
-      size: 310
+      md5: f82a40917b24693adcb677b5051491b6
+      size: 311
     - path: src/data/make_dataset.py
       hash: md5
       md5: 409f6e106b60737ba81798321beb2303
@@ -18,31 +18,31 @@ stages:
     params:
       params.yaml:
         make_dataset.seed: 42
-        make_dataset.test_split: 0.2
+        make_dataset.test_split: 0.3
     outs:
     - path: data/processed/test.csv
       hash: md5
-      md5: 7caa0ab7ed7d760dd907552e3c30839d
-      size: 815130
+      md5: da13ee79bff2c3bcf364593c0f015485
+      size: 1222456
     - path: data/processed/train.csv
       hash: md5
-      md5: 9172e2cbace0171658d7cf2ded80c4d4
-      size: 3257452
+      md5: f48957fde00f0ca7a14b27683093e358
+      size: 2850126
   build_features:
     cmd: python src/features/build_features.py
     deps:
     - path: data/processed/test.csv
       hash: md5
-      md5: 7caa0ab7ed7d760dd907552e3c30839d
-      size: 815130
+      md5: da13ee79bff2c3bcf364593c0f015485
+      size: 1222456
     - path: data/processed/train.csv
       hash: md5
-      md5: 9172e2cbace0171658d7cf2ded80c4d4
-      size: 3257452
+      md5: f48957fde00f0ca7a14b27683093e358
+      size: 2850126
     - path: params.yaml
       hash: md5
-      md5: 4079dc62165b97606ef5c6bdb3ba73b8
-      size: 310
+      md5: f82a40917b24693adcb677b5051491b6
+      size: 311
     - path: src/features/build_features.py
       hash: md5
       md5: d74f8762cc09431c992b9a351c5d6197
@@ -54,23 +54,23 @@ stages:
     outs:
     - path: data/features/test_features.csv
       hash: md5
-      md5: 64d07b5634f0a25c899c82fbca5f3d73
-      size: 815130
+      md5: fbb676a1ca4bfdb0106a39e9d3a00130
+      size: 1222456
     - path: data/features/train_features.csv
       hash: md5
-      md5: 37e4febf49915d156316806e32162ca4
-      size: 3257452
+      md5: efc521c08b7bfd63f971327a4cf07e40
+      size: 2850126
   train_model:
     cmd: python src/models/train_model.py
     deps:
     - path: data/features/train_features.csv
       hash: md5
-      md5: 37e4febf49915d156316806e32162ca4
-      size: 3257452
+      md5: efc521c08b7bfd63f971327a4cf07e40
+      size: 2850126
     - path: params.yaml
       hash: md5
-      md5: 4079dc62165b97606ef5c6bdb3ba73b8
-      size: 310
+      md5: f82a40917b24693adcb677b5051491b6
+      size: 311
     - path: src/models/train_model.py
       hash: md5
       md5: 0f6aecdc190b1589c1b10c371c60d4a0
@@ -86,23 +86,23 @@ stages:
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: ef5a5a588e2a9b5b4c92752a700dc471
-      size: 429423
+      md5: 02fafdf77165dbd280f1ab6106835901
+      size: 429871
   evaluate:
     cmd: python src/models/evaluate.py
     deps:
     - path: data/features/test_features.csv
       hash: md5
-      md5: 64d07b5634f0a25c899c82fbca5f3d73
-      size: 815130
+      md5: fbb676a1ca4bfdb0106a39e9d3a00130
+      size: 1222456
     - path: models/model.pkl
       hash: md5
-      md5: ef5a5a588e2a9b5b4c92752a700dc471
-      size: 429423
+      md5: 02fafdf77165dbd280f1ab6106835901
+      size: 429871
     - path: params.yaml
       hash: md5
-      md5: 4079dc62165b97606ef5c6bdb3ba73b8
-      size: 310
+      md5: f82a40917b24693adcb677b5051491b6
+      size: 311
     - path: src/models/evaluate.py
       hash: md5
       md5: 7c3e0c5c62941dae42fef0e83e7a7d17
@@ -113,10 +113,10 @@ stages:
     outs:
     - path: dvclive/metrics.json
       hash: md5
-      md5: 56df3974470703da652e89fc07242b8a
-      size: 113
+      md5: e23d228507c458e9b351139f0583e3aa
+      size: 112
     - path: dvclive/plots/metrics
       hash: md5
-      md5: 48fac313431778d5d359b51e6cdccef6.dir
-      size: 92
+      md5: 205434d480678805d29ebbd1006b5a06.dir
+      size: 91
       nfiles: 3
