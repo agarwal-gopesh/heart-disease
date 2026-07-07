@@ -1,4 +1,6 @@
 [core]
-    remote = my-remote
+    remote = localstorage
 ['remote "my-remote"']
     url = ../temp_dvc_storage
+['remote "localstorage"']
+    url = /Users/gopesh/nyc dataset experimentation/temp_dvc_storage

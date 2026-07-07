@@ -1,76 +1,73 @@
 stages:
 
   make_dataset:
-
     cmd: python src/data/make_dataset.py data/interim/train_sample.csv
 
     deps:
-      - src/data/make_dataset.py
-      - data/interim/train_sample.csv
-      - params.yaml
+    - src/data/make_dataset.py
+    - data/interim/train_sample.csv
+    - params.yaml
 
     params:
-      - make_dataset.test_split
-      - make_dataset.seed
+    - make_dataset.test_split
+    - make_dataset.seed
 
     outs:
-      - data/processed/train.csv
-      - data/processed/test.csv
-
+    - data/processed/train.csv
+    - data/processed/test.csv
 
 
   build_features:
-
     cmd: python src/features/build_features.py
 
     deps:
-      - src/features/build_features.py
-      - data/processed/train.csv
-      - data/processed/test.csv
-      - params.yaml
+    - src/features/build_features.py
+    - data/processed/train.csv
+    - data/processed/test.csv
+    - params.yaml
 
     params:
-      - build_features.train_path
-      - build_features.test_path
+    - build_features.train_path
+    - build_features.test_path
 
     outs:
-      - data/features/train_features.csv
-      - data/features/test_features.csv
-
+    - data/features/train_features.csv
+    - data/features/test_features.csv
 
 
   train_model:
-
     cmd: python src/models/train_model.py
 
     deps:
-      - src/models/train_model.py
-      - data/features/train_features.csv
-      - params.yaml
+    - src/models/train_model.py
+    - data/features/train_features.csv
+    - params.yaml
 
     params:
-      - train_model.model_name
-      - train_model.seed
-      - train_model.epochs
-      - train_model.n_estimators
-      - train_model.max_depth
-      - train_model.min_samples_split
-      - train_model.learning_rate
+    - train_model.model_name
+    - train_model.seed
+    - train_model.n_estimators
+    - train_model.max_depth
+    - train_model.min_samples_split
+    - train_model.learning_rate
 
     outs:
-      - models/model.pkl
-
+    - models/model.pkl
 
 
   evaluate:
-
     cmd: python src/models/evaluate.py
 
     deps:
-      - src/models/evaluate.py
-      - models/model.pkl
-      - data/features/test_features.csv
-      - params.yaml
+    - src/models/evaluate.py
+    - models/model.pkl
+    - data/features/test_features.csv
+    - params.yaml
 
     params:
-      - evaluate.model_path
+    - evaluate.model_path
+metrics:
+- dvclive/metrics.json
+plots:
+- dvclive/plots/metrics:
+    x: step

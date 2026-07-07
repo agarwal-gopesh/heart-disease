@@ -62,11 +62,14 @@ def evaluate(model, X_test, y_test):
         predictions
     )
 
-    rmse = mean_squared_error(
+    import numpy as np
+
+    mse = mean_squared_error(
         y_test,
-        predictions,
-        squared=False
+        predictions
     )
+
+    rmse = np.sqrt(mse)
 
     r2 = r2_score(
         y_test,

@@ -87,3 +87,7 @@ target/
 .mypy_cache/
 temp_dvc_storage/
 temp_dvc_storage/
+data/processed/
+data/features/
+models/model.pkl
+dvclive/
