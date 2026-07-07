@@ -115,6 +115,7 @@ def main():
             "R2",
             r2
         )
+        live.next_step()
 
 
 if __name__ == "__main__":

@@ -9,8 +9,8 @@ stages:
       size: 4094608
     - path: params.yaml
       hash: md5
-      md5: a5a45b7444c26f73ede71f5f54122b07
-      size: 314
+      md5: 4079dc62165b97606ef5c6bdb3ba73b8
+      size: 310
     - path: src/data/make_dataset.py
       hash: md5
       md5: 409f6e106b60737ba81798321beb2303
@@ -41,8 +41,8 @@ stages:
       size: 3257452
     - path: params.yaml
       hash: md5
-      md5: a5a45b7444c26f73ede71f5f54122b07
-      size: 314
+      md5: 4079dc62165b97606ef5c6bdb3ba73b8
+      size: 310
     - path: src/features/build_features.py
       hash: md5
       md5: d74f8762cc09431c992b9a351c5d6197
@@ -69,8 +69,8 @@ stages:
       size: 3257452
     - path: params.yaml
       hash: md5
-      md5: a5a45b7444c26f73ede71f5f54122b07
-      size: 314
+      md5: 4079dc62165b97606ef5c6bdb3ba73b8
+      size: 310
     - path: src/models/train_model.py
       hash: md5
       md5: 0f6aecdc190b1589c1b10c371c60d4a0
@@ -78,16 +78,16 @@ stages:
     params:
       params.yaml:
         train_model.learning_rate: 0.01
-        train_model.max_depth: 10
-        train_model.min_samples_split: 5
-        train_model.model_name: random_forest
-        train_model.n_estimators: 200
+        train_model.max_depth: 18
+        train_model.min_samples_split: 10
+        train_model.model_name: lightgbm
+        train_model.n_estimators: 150
         train_model.seed: 42
     outs:
     - path: models/model.pkl
       hash: md5
-      md5: d7fb2a86cc9bba4c660226dfb6c0547c
-      size: 8559489
+      md5: ef5a5a588e2a9b5b4c92752a700dc471
+      size: 429423
   evaluate:
     cmd: python src/models/evaluate.py
     deps:
@@ -97,16 +97,26 @@ stages:
       size: 815130
     - path: models/model.pkl
       hash: md5
-      md5: d7fb2a86cc9bba4c660226dfb6c0547c
-      size: 8559489
+      md5: ef5a5a588e2a9b5b4c92752a700dc471
+      size: 429423
     - path: params.yaml
       hash: md5
-      md5: a5a45b7444c26f73ede71f5f54122b07
-      size: 314
+      md5: 4079dc62165b97606ef5c6bdb3ba73b8
+      size: 310
     - path: src/models/evaluate.py
       hash: md5
-      md5: 9cd273abae2de10ea0153c7d1183ef19
-      size: 1655
+      md5: 7c3e0c5c62941dae42fef0e83e7a7d17
+      size: 1680
     params:
       params.yaml:
         evaluate.model_path: models/model.pkl
+    outs:
+    - path: dvclive/metrics.json
+      hash: md5
+      md5: 56df3974470703da652e89fc07242b8a
+      size: 113
+    - path: dvclive/plots/metrics
+      hash: md5
+      md5: 48fac313431778d5d359b51e6cdccef6.dir
+      size: 92
+      nfiles: 3

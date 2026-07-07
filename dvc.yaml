@@ -66,6 +66,13 @@ stages:
 
     params:
     - evaluate.model_path
+
+    metrics:
+    - dvclive/metrics.json
+
+    plots:
+    - dvclive/plots/metrics:
+        x: step
 metrics:
 - dvclive/metrics.json
 plots:
