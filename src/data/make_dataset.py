@@ -1,30 +1,35 @@
-# src/data/make_dataset.py
-
 from pathlib import Path
 import yaml
-import sys
 import pandas as pd
+import sys
+
 from sklearn.model_selection import train_test_split
+from dvclive import Live
 
 
 def load_params():
+
     root = Path(__file__).resolve().parents[2]
 
-    with open(root / "params.yaml") as f:
+    with open(root / "params.yaml", "r") as f:
         params = yaml.safe_load(f)
 
     return params["make_dataset"], root
 
 
 def load_data(data_path):
-    return pd.read_csv(data_path)
+
+    data = pd.read_csv(data_path)
+
+    return data
 
 
-def split_data(df, test_size, random_state):
+def split_data(df, test_split, seed):
+
     train, test = train_test_split(
         df,
-        test_size=test_size,
-        random_state=random_state
+        test_size=test_split,
+        random_state=seed
     )
 
     return train, test
@@ -55,20 +60,34 @@ def main():
     input_file = sys.argv[1]
 
     data_path = root / input_file
-    output_path = root / "data" / "processed"
 
-    data = load_data(data_path)
-
-    train, test = split_data(
-        data,
-        params["test_split"],
-        params["seed"]
+    data = load_data(
+        data_path
     )
+
+    with Live() as live:
+
+        # experiment parameters
+        live.log_param(
+            "test_split",
+            params["test_split"]
+        )
+
+        live.log_param(
+            "seed",
+            params["seed"]
+        )
+
+        train, test = split_data(
+            data,
+            params["test_split"],
+            params["seed"]
+        )
 
     save_data(
         train,
         test,
-        output_path
+        root / "data" / "processed"
     )
 
 
